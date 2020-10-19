@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#DCF4FF">
+    <!-- IMGEN DE MUESTRA -->
+    <RelativeLayout
+        android:id="@+id/area_presentacion"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:background="@drawable/inicio_img">
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/area_bienvenido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/area_presentacion"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin1"
+        android:paddingTop="30dp"
+        android:paddingRight="@dimen/activity_horizontal_margin1"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Bievenid@"
+            android:textSize="50dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/area_Nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/area_bienvenido"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin1"
+        android:paddingTop="30dp"
+        android:paddingRight="@dimen/activity_horizontal_margin1"
+        >
+        <TextView
+            android:id="@+id/tvNombree"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="50dp"
+            />
+    </LinearLayout>
+</RelativeLayout>
