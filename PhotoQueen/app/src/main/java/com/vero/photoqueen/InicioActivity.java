@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,34 +21,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.vero.photoqueen.utils.Toolbox;
 
-public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SharedPreferences sharedPreferences;
     private DrawerLayout drawer;
-    TextView tvUsuario;
-    TextView tvCorreo;
-    public TextView tvCoreo;
+    private TextView tvUsuario, tvCorreo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
         tvUsuario = (TextView) findViewById(R.id.tvUsuario);
         tvCorreo = (TextView) findViewById(R.id.tvcorreo);
-        SharedPreferences sp2 = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-        String   Usuario =sp2.getString("Usuario","");
-        tvUsuario.setText(Usuario);
-        String   Correo =sp2.getString("Correo","");
-        tvCorreo.setText(Correo);
-        //Activar la accion del menu
-        Toolbar toolbar =findViewById(R.id.toolbar);
+
+        // La clase {Constants} te provee de esas variables
+        sharedPreferences = getSharedPreferences(Constants.NAME_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+
+        // ELIMINAR: Recuerda que las variables que declares siempre tienen que iniciar con minúscula
+        String usuario = sharedPreferences.getString(Constants.USER,"");
+        String correo = sharedPreferences.getString(Constants.MAIL,"");
+
+        tvUsuario.setText(usuario);
+        tvCorreo.setText(correo);
+
+        // Activar la accion del menu
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //
+
+        // Drawer
         drawer = findViewById(R.id.drawer_layout);
-        //Activar fragments
-        NavigationView navigationView= findViewById(R.id.nav_view);
+
+        // Activar fragments
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        //Investigar para que es Toggle
+        // Investigar para que es Toggle
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -57,7 +68,8 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
             navigationView.setCheckedItem(R.id.nav_info);
         }
     }
-    //implementar Navigation Item Selected
+
+    //  implementar Navigation Item Selected
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -79,7 +91,6 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
                 break;
 
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -108,20 +119,22 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         switch (item.getItemId()){
             case R.id.itemCerrarS:
                 cerrarSesion();
+                break;
             case R.id.itemSalir:
-                //Finalizar la aplicacion no importa si es una aplicacion secundaria
+                // Finalizar la aplicacion no importa si es una aplicacion secundaria
                 finishAffinity();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void cerrarSesion(){
-        SharedPreferences sp2 = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-        boolean ingreso = false;
-        sp2.edit().putBoolean("ingreso",ingreso).commit();
-        Toast.makeText(getApplicationContext(),"ADIOS",Toast.LENGTH_LONG).show();
-        Intent intent1 = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(intent1);
+        sharedPreferences.edit().putBoolean(Constants.INGRESO, false).apply();
+
+        Toolbox.createToast(getApplicationContext(), "Adios", false);
+
+        Intent irMainActivity = new Intent(this, MainActivity.class);
+        startActivity(irMainActivity);
     }
 
     protected void sendEmail() {
@@ -142,7 +155,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
             Log.i("EMAIL", "Enviando email...");
         }
         catch (android.content.ActivityNotFoundException e) {
-            Toast.makeText(this, "NO existe ningún cliente de email instalado!.", Toast.LENGTH_SHORT).show();
+            Toolbox.createToast(this, "N existe ningún cliente de email instalado!.", false);
         }
     }
 

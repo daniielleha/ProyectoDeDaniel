@@ -33,10 +33,13 @@ public class RegistroActivity extends AppCompatActivity {
     EditText etNombre, etApellido, etCorreo, etUsuario, etPassword, etTelefono;
     Button btnRegistrar;
     String no, ap, cor, us, pa, te;
+
     //Una animacion de carga para la comunicacion del web service
     ProgressDialog progressDialog;
+
     //Almacenar la cadena
     RequestQueue requestQueue; String HttpURI = "http://192.168.1.74/cabina/public/andro-registro";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
