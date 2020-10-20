@@ -37,9 +37,9 @@ class ImageAdaptor extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = (ImageView) convertView;
 
-        if(imageView == null){
+        if (imageView == null) {
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(350,450));
+            imageView.setLayoutParams(new GridView.LayoutParams(350, 450));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
@@ -47,6 +47,4 @@ class ImageAdaptor extends BaseAdapter {
 
         return imageView;
     }
-
-
 }

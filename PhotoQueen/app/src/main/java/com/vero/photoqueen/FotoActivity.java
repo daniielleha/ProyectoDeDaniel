@@ -28,7 +28,9 @@ public class FotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_foto);
 
         // Primero activar la parte visual del boton PARA EL BOTON DE BACK O HOME
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {

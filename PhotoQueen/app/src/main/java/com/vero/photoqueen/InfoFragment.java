@@ -12,18 +12,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class InfoFragment extends Fragment {
-    TextView Nombre;
+import com.vero.photoqueen.data.SharedPreferencesConfig;
+import com.vero.photoqueen.utils.Constants;
 
-    @Nullable
+public class InfoFragment extends Fragment {
+
+    private TextView tvNombre;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_info, container,false);
+        View view = inflater.inflate(R.layout.fragment_info, container, false);
 
-        Nombre =(TextView) view.findViewById(R.id.tvNombree);
-        SharedPreferences sp2 = this.getActivity().getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-        String   NOMBRE =sp2.getString("Usuario","");
-        Nombre.setText(NOMBRE);
+        tvNombre = (TextView) view.findViewById(R.id.tvNombree);
+
+        if (getContext() != null) {
+            SharedPreferences sharedPreferences = SharedPreferencesConfig.getPreferences(getContext());
+            String nombre = sharedPreferences.getString(Constants.USER, "");
+            tvNombre.setText(nombre);
+        }
+
+
         return view;
     }
 

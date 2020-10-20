@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +17,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.vero.photoqueen.data.SharedPreferencesConfig;
+import com.vero.photoqueen.utils.Constants;
 import com.vero.photoqueen.utils.Toolbox;
 
 public class InicioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +38,7 @@ public class InicioActivity extends AppCompatActivity implements NavigationView.
         tvCorreo = (TextView) findViewById(R.id.tvcorreo);
 
         // La clase {Constants} te provee de esas variables
-        sharedPreferences = getSharedPreferences(Constants.NAME_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesConfig.getPreferences(getApplicationContext());
 
         // ELIMINAR: Recuerda que las variables que declares siempre tienen que iniciar con minúscula
         String usuario = sharedPreferences.getString(Constants.USER,"");

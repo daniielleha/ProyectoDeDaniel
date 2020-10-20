@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +28,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.vero.photoqueen.data.SharedPreferencesConfig;
+import com.vero.photoqueen.utils.Constants;
+import com.vero.photoqueen.utils.Toolbox;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +41,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AlbumFragment extends Fragment {
-    ArrayList<Integer> mImageIds = new ArrayList< >(Arrays.asList(
+    ArrayList<Integer> mImageIds = new ArrayList<>(Arrays.asList(
             R.id.imagenid
     ));
     ImageView imagen;
@@ -48,17 +50,18 @@ public class AlbumFragment extends Fragment {
     //Una animacion de carga para la comunicacion del web service
     ProgressDialog progressDialog;
     //Almacenar la cadena
-    RequestQueue requestQueue; String HttpURI = "http://192.168.1.74/cabina/public/andro-foto";
+    RequestQueue requestQueue;
+    String HttpURI = Constants.END_POINT_URL_PHOTO;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_album, container,false);
+        View view = inflater.inflate(R.layout.fragment_album, container, false);
 
         thiscontext = container.getContext();
         GridView gridView = view.findViewById(R.id.myGrid);
 
-        gridView.setAdapter(new ImageAdaptor(mImageIds,thiscontext));
+        gridView.setAdapter(new ImageAdaptor(mImageIds, thiscontext));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,20 +71,27 @@ public class AlbumFragment extends Fragment {
             }
         });
         // Inicializar a requestqueue y el progressDialog
-        requestQueue = Volley.newRequestQueue(thiscontext); progressDialog = new ProgressDialog(thiscontext);
+        requestQueue = Volley.newRequestQueue(thiscontext);
+        progressDialog = new ProgressDialog(thiscontext);
 
         traerimagen1();
         imagen = (ImageView) view.findViewById(R.id.imagenid);
         return view;
     }
 
-    public  void traerimagen1() {
+    public void traerimagen1() {
         //Tomar el valor escrito por el usuario
-        SharedPreferences sp2 = this.getActivity().getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-        id =sp2.getString("IdUsuario","");
-        if(id.isEmpty() )
-            Toast.makeText(thiscontext.getApplicationContext(),"Debes llenar todos los campos", Toast.LENGTH_LONG).show();
-        else { //Mostrar el progressDialog
+
+        if (getContext() != null) {
+            SharedPreferences sharedPreferences = SharedPreferencesConfig.getPreferences(getContext());
+            id = sharedPreferences.getString("IdUsuario", "");
+        }
+
+
+        if (id.isEmpty()) {
+            Toolbox.createToast(getContext(), "Debes llenar todos los campos", true);
+        } else {
+            //Mostrar el progressDialog
             progressDialog.setMessage("Procesando...");
             progressDialog.show(); //Creacion de la cadena a  ejecutar en el web service mediante Volley
             StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpURI, new Response.Listener<String>() {
@@ -93,11 +103,10 @@ public class AlbumFragment extends Fragment {
                         JSONObject obj = new JSONObject(serverResponse);
                         String mensaje = obj.getString("mensaje");
 
-                        String URLIMAGEN = "http://192.168.1.74/cabina/public/"+mensaje;
+                        String URLIMAGEN = "http://192.168.1.74/cabina/public/" + mensaje;
 
                         cargarWebServiceImagen(URLIMAGEN);
-                        // Toast.makeText(thiscontext.getApplicationContext(),URLIMAGEN, Toast.LENGTH_LONG).show();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -106,20 +115,20 @@ public class AlbumFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError error) { //Ocultar el progressDialog
                             progressDialog.dismiss();
-                           // Toast.makeText(thiscontext.getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
                         }
-                    }){
-                protected Map<String, String> getParams(){
-                    Map<String,String> parametros = new HashMap<>();
-                    parametros.put("IdUsuario",id);
+                    }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> parametros = new HashMap<>();
+                    parametros.put("IdUsuario", id);
                     return parametros;
                 }
-            } ;
+            };
             requestQueue.add(stringRequest);
         }
     }
-    private void cargarWebServiceImagen(String URLIMAGEN){
-        URLIMAGEN = URLIMAGEN.replace(" ","%20");
+
+    private void cargarWebServiceImagen(String URLIMAGEN) {
+        URLIMAGEN = URLIMAGEN.replace(" ", "%20");
 
         ImageRequest imageRequest = new ImageRequest(URLIMAGEN, new Response.Listener<Bitmap>() {
             @Override
@@ -136,7 +145,7 @@ public class AlbumFragment extends Fragment {
     }
 
 
-    public void ShowDialogBox(final int item_pos){
+    public void ShowDialogBox(final int item_pos) {
         final Dialog dialog = new Dialog(thiscontext);
 
         dialog.setContentView(R.layout.custom_dialog);
@@ -150,7 +159,7 @@ public class AlbumFragment extends Fragment {
 
         //extracting name
         int index = title.indexOf("/");
-        String name = title.substring(index+1,title.length());
+        String name = title.substring(index + 1, title.length());
         Image_name.setText(name);
 
         Image.setImageResource(item_pos);
@@ -165,7 +174,7 @@ public class AlbumFragment extends Fragment {
         btn_Full.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(thiscontext, full_view.class);
+                Intent i = new Intent(thiscontext, FullView.class);
                 i.putExtra("img_id", item_pos);
                 startActivity(i);
             }

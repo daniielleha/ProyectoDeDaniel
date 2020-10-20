@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".full_view"
+        <activity android:name=".FullView"
             android:theme="@style/fullViewTheme"/>
     </application>
 
