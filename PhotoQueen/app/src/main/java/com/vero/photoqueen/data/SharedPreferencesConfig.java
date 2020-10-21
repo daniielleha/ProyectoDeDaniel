@@ -13,6 +13,8 @@ import com.vero.photoqueen.utils.Constants;
 // TODO: Importante, estudiar Dependency Injection y entender por qué solo se
 //  debe llamar una vez la creación de SharedPreferences
 
+    // Se creó la nueva rama DEVELOP
+
 public class SharedPreferencesConfig {
 
     public static SharedPreferences getPreferences(Context context){
