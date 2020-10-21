@@ -2,4 +2,9 @@
     <string name="app_name">PhotoQueen</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="sing_in">Acceder</string>
+    <string name="sing_up">¿Aún no tienes cuenta? Registrate</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
 </resources>

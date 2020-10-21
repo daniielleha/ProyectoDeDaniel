@@ -1,152 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#DCF4FF"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
-    <!-- IMGEN DE MUESTRA -->
-    <RelativeLayout
-        android:id="@+id/area_presentacion"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal"
-        android:background="@drawable/inicio_img">
-    </RelativeLayout>
-    <!-- CAMPO USURAIO -->
-    <LinearLayout
-        android:id="@+id/area_usuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_presentacion"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin1"
-        android:paddingTop="30dp"
-        android:paddingRight="@dimen/activity_horizontal_margin1"
-        >
-        <!--TEXT INPUT -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/Error"
-            app:hintTextAppearance="@style/Hint"
-            app:passwordToggleEnabled="true">
-            <!--EL CAMPO USUARIO -->
-            <EditText
-                android:id="@+id/etUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/shape"
-                android:ems="10"
-                android:hint="Usuario"
-                android:inputType="textEmailAddress"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    <!--CAMPO CONTRASEÑA-->
-    <LinearLayout
-        android:id="@+id/area_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_usuario"
-        android:orientation="horizontal"
+    android:background="@color/bg_blue">
 
-        android:paddingLeft="@dimen/activity_horizontal_margin1"
-        android:paddingRight="@dimen/activity_horizontal_margin1"
-        android:paddingBottom="@dimen/activity_vertical_margin1">
-        <!--TEXT INPUT -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_password"
+    <ImageView
+        android:id="@+id/ivPrincipalImage"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/inicio_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_usuario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPrincipalImage">
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape"
+            android:ems="10"
+            android:hint="@string/user"
+            android:inputType="textEmailAddress"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPrincipalImage" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:hintTextAppearance="@style/Hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_usuario"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorPrimaryDark">
+        <!-- EL CAMPO CONTRASEÑA -->
+        <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:hintTextAppearance="@style/Hint"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorPrimaryDark">
-            <!-- EL CAMPO CONTRASEÑA -->
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    <!--LINK FORGOT-->
-    <RelativeLayout
-        android:id="@+id/area_forgot"
-        android:layout_width="match_parent"
+            android:background="@drawable/shape"
+            android:ems="10"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvLosePassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/area_password"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin1"
-        android:paddingRight="@dimen/activity_horizontal_margin1"
-        android:paddingBottom="@dimen/activity_vertical_margin1">
-        <!--TEXT INPUT -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:text="¿Olvidaste tu contraseña?"
-            android:textSize="12sp" />
-    </RelativeLayout>
-    <!--BOTONES INFERIORES -->
-    <LinearLayout
-        android:id="@+id/area_acceder"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/forgot_password"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/til_password"
+        app:layout_constraintStart_toStartOf="@+id/til_password"
+        app:layout_constraintTop_toBottomOf="@+id/til_password" />
+
+    <Button
+        android:id="@+id/btnAcceder"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_boton"
+        android:text="@string/sing_in"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/til_password"
+        app:layout_constraintStart_toStartOf="@+id/til_password"
+        app:layout_constraintTop_toBottomOf="@+id/tvLosePassword" />
+
+    <TextView
+        android:id="@+id/etRegistrar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/area_forgot"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin1"
-        android:paddingRight="@dimen/activity_horizontal_margin1"
-        android:paddingBottom="@dimen/activity_vertical_margin1">
-        <Button
-            android:id="@+id/btnAcceder"
-            android:layout_width="300sp"
-            android:layout_height="50sp"
-            android:text="acceder"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:background="@drawable/shape_boton" />
-    </LinearLayout>
-    <!--LINK REGISTRO-->
-    <RelativeLayout
-        android:id="@+id/area_registro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/area_acceder"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin1"
-        android:paddingRight="@dimen/activity_horizontal_margin1"
-        android:paddingBottom="@dimen/activity_vertical_margin1">
-        <!--TEXT INPUT -->
-        <TextView
-            android:id="@+id/etRegistrar"
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content"
-            android:text="¿Aún no tienes cuenta? Registrate"
-            android:textSize="14sp"
-            />
-    </RelativeLayout>
-</RelativeLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/sing_up"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnAcceder"
+        app:layout_constraintStart_toStartOf="@+id/btnAcceder"
+        app:layout_constraintTop_toBottomOf="@+id/btnAcceder" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
